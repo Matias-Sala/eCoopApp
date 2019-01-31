@@ -1,0 +1,27 @@
+<form [formGroup]="pagoFormGroup" (ngSubmit)="onSubmit()">
+  <h1 mat-dialog-title>Nuevo Pago</h1>
+  <div mat-dialog-content>
+    <mat-form-field>
+      <mat-select placeholder="Seleccione un concepto" required formControlName="selectConcepto">
+        <mat-option *ngFor="let concepto of conceptos" [value]="concepto">
+          {{concepto.nombre}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="Seleccione una cuota" required formControlName="cuota">
+        <mat-option *ngFor="let cta of cuotas" [value]="cta">
+          {{ cta }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Valor" type="number" formControlName="valor" disabled>
+      <span matPrefix>$&nbsp;</span>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancelar</button>
+    <button mat-button type="submit" [disabled]="!pagoFormGroup.valid">Ok</button>
+  </div>
+</form>
