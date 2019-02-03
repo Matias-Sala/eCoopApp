@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://coopalmafuerte-001-site3.btempurl.com/api'
+  baseUrl: 'https://www.ecoop.site/api'
 };
 
 /*
