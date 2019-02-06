@@ -400,6 +400,8 @@ MIT
 
 @angular/material/sidenav
 
+@angular/cdk/scrolling
+
 @angular/material/tabs
 
 @angular/material/divider
