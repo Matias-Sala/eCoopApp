@@ -6,7 +6,9 @@ import { HttpHeaders } from '@angular/common/http';
 export const baseUrl = environment.baseUrl;
 
 export const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({ 'Access-Control-Allow-Origin': '*',
+                               'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+                               'Content-Type': 'application/json' })
 };
 
 export function handleError<T>(operation = 'operation', result?: T) {

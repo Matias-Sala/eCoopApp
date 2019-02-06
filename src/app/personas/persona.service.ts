@@ -98,7 +98,7 @@ export class PersonaService {
 
     getPadres(): Observable<Persona[]> {
         const padresUrl = this.personasUrl + '/parent';
-        return this.http.get<Persona[]>(padresUrl);
+        return this.http.get<Persona[]>(padresUrl, httpOptions);
     }
 
     postPago(pago: PagoPost): Observable<Persona> {
