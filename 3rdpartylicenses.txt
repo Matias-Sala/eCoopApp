@@ -394,13 +394,13 @@ MIT
 @ngrx/store
 MIT
 
-@angular/material/core
-
-@angular/material/list
-
 @angular/material/sidenav
 
 @angular/cdk/scrolling
+
+@angular/material/core
+
+@angular/material/list
 
 @angular/material/tabs
 
