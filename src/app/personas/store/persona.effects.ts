@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Effect, ofType, Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { switchMap, map, withLatestFrom, mergeMap, catchError } from 'rxjs/operators';
+import { switchMap, map, withLatestFrom, mergeMap, catchError, take } from 'rxjs/operators';
 
 import { IAppState } from 'src/app/store/app.state';
 import {
@@ -25,6 +25,7 @@ export class PersonaEffects {
         ofType(EPersonaActions.GetPersonas),
         switchMap(() =>
             this._personaService.getPadres().pipe(
+                take(10),
                 map(data => {
                     return (new GetPersonasSuccess(data));
                 }),

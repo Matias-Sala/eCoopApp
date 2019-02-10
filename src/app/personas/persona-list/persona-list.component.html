@@ -1,30 +1,48 @@
-<mat-sidenav-container class="full-container">
-    <mat-sidenav #sidenav mode="over">
-        <p><button mat-button (click)="sidenav.toggle()">Toggle</button></p>
-    </mat-sidenav>
-
-    <mat-sidenav-content>
-
-        <mat-toolbar color="primary" class="mat-elevation-z6">
-            <button mat-icon-button class="toolBar-icon" (click)="sidenav.toggle()">
-                <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+<div>
+    <mat-toolbar color="primary" class="mat-elevation-z6 header" *ngIf="!showSearch">
+        <button mat-icon-button class="toolBar-icon" (click)="sidenav.toggle()">
+            <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <span>{{ titulo }}</span>
+        <span class="bar-spacer"></span>
+        <button mat-button matSuffix mat-icon-button aria-label="Buscar" (click)="showSearch = !showSearch">
+            <mat-icon>search</mat-icon>
+        </button>
+    </mat-toolbar>
+    <mat-toolbar class="mat-elevation-z6" *ngIf="showSearch">
+        <button mat-icon-button class="toolBar-icon" (click)="value=''; showSearch = !showSearch; filterPersons()" aria-label="Back" color="primary">
+            <mat-icon aria-label="Cancelar busqueda">arrow_back</mat-icon>
+        </button>
+        <mat-form-field style="width: 100%; color:gray; margin: 20px" floatLabel="never">
+            <input matInput type="text" placeholder="Buscar" [(ngModel)]="value" (keyup)="filterPersons()">
+            <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''; filterPersons()">
+                <mat-icon>close</mat-icon>
             </button>
-            <span>{{ titulo }}</span>
-            <span class="bar-spacer"></span>
-            <div class="right">
-                <form id="search">
-                    <input #search type="search" placeholder="Search" [ngClass]="{'filled':filled}" (click)="filled=true"
-                        (blur)="filled=search.value?true:false">
-                </form>
-                <button class="close" *ngIf="filled" (click)="search.value='';filled=false">X</button>
+        </mat-form-field>
+    </mat-toolbar>
+    <mat-sidenav-container class="container">
+        <mat-sidenav #sidenav mode="over" fixedInViewport="fixed" class="sidenav">
+            <p><button mat-button (click)="sidenav.toggle()">Toggle</button></p>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <div>
+                <cdk-virtual-scroll-viewport [itemSize]="50" class="example-viewport">
+                    <a *cdkVirtualFor="let persona of personasFiltered | async ; let i = index" (click)="onResumePersona(i)"
+                        class="list-item">
+                        <div class="mat-list-item-content">
+                            <div matRipple class="mat-item-icon">
+                                <mat-icon mat-list-icon class="avatar" color="accent">supervised_user_circle</mat-icon>
+                                <div class="list-text">
+                                    <div class="mat-line"><b> {{persona.nombre + ' ' + persona.apellido}}</b></div>
+                                    <div class="mat-line"> {{ persona.direccion?.calle + ' ' +
+                                        persona.direccion?.numero }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </cdk-virtual-scroll-viewport>
             </div>
-        </mat-toolbar>
-        <mat-nav-list>
-            <a mat-list-item *ngFor="let persona of personas$ | async, let i = index" (click)="onResumePersona(i)">
-                <mat-icon mat-list-icon color="accent">supervised_user_circle</mat-icon>
-                <h4 mat-line><b> {{persona.nombre + ' ' + persona.apellido}}</b></h4>
-                <p mat-line> {{ persona.direccion?.calle + ' ' + persona.direccion?.numero }} </p>
-            </a>
-        </mat-nav-list>
-    </mat-sidenav-content>
-</mat-sidenav-container>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

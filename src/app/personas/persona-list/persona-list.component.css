@@ -1,77 +1,51 @@
 
+.container {
+  position: absolute;
+  top: 75px;
+  left: 0;
+  right: 0;
+}
+
+.sidenav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
 .right {
   float: right
-  }
-  
+  }  
   
   .bar-spacer {
     flex: 1 1 auto;
   }
 
-  input::-webkit-search-decoration,
-  input::-webkit-search-cancel-button {
-    display: none;
+  .example-viewport {
+    height: 600px;
+    width: inherit;
+  }
+
+  .list-item {
+    margin: 2rem;
   }
   
-  input[type=search] {
-    background: #ededed url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
-    border: solid 1px #ccc;
-    padding: 9px 10px 9px 10px;
-    width: 15px;
-    -webkit-border-radius: 10em;
-    -moz-border-radius: 10em;
-    border-radius: 10em;
-    -webkit-transition: all .5s;
-    -moz-transition: all .5s;
-    transition: all .5s;
-    -webkit-box-sizing: content-box;
-    -webkit-appearance: textfield;
-    outline: none;
-    cursor: pointer;
-    z-index: 5;
+  .mat-item-icon{
+    display: flex;
   }
-  #search input[type=search].filled
-  {
-    width: 400px;
-    padding-left: 32px;
-    color: #4a83c0;
-    background-color: #fff;
-    cursor: auto;
-  
+
+  .avatar{
+    margin: 10px;
+    font-size: 35px;
   }
-  
-  input[type=search]:focus {
-    width: 400px;
-    background-color: #fff;
-    border-color: #66CC75;
-    padding-left: 32px;
-    cursor: auto;
-    -webkit-box-shadow: 0 0 5px rgba(109, 207, 246, .5);
-    -moz-box-shadow: 0 0 5px rgba(109, 207, 246, .5);
-    box-shadow: 0 0 5px rgba(109, 207, 246, .5);
-  }
-  
-  #search input[type=search]:hover {
-    background-color: #fff;
-  }
-  
-  #search input:-moz-placeholder {
-    color: transparent;
-  }
-  
-  #search input::-webkit-input-placeholder {
-    color: transparent;
-  }
-  #search input[type=search].filled:-moz-placeholder{
-    color:red;
-  }
-  #search input[type=search].filled::-webkit-input-placeholder{
-    color:red;
-  }
-  
-  .close
-  {
-    z-index:10;
-    margin-left:-3rem;
-    margin-right:1rem;
+
+  .list-text{
+    margin: 10px;
   }
