@@ -49,3 +49,7 @@
   .list-text{
     margin: 10px;
   }
+
+  .no-line .mat-form-field-underline {
+    display: none;
+  }

@@ -11,7 +11,7 @@ export function personaReducer(state: IPersonaState = initialPersonaState, actio
             };
         }
         case EPersonaActions.GetPersona: {
-            const selectedPersona = {...state.personas[action.payload]};
+            const selectedPersona = {...state.personas.find(p => p.id === action.payload.personaId)};
             return {
                 ...state,
                 selectedPersona: selectedPersona
@@ -35,7 +35,7 @@ export function personaReducer(state: IPersonaState = initialPersonaState, actio
         case EPersonaActions.DeletePago: {
             return {
                 ...state,
-                selectedPagoId: action.payload
+                selectedPagoId: action.payload.pagoId
             };
         }
         case EPersonaActions.DeletePagoSuccess: {

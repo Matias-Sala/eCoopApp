@@ -101,8 +101,9 @@ export class PersonaService {
         return this.http.get<Persona[]>(padresUrl, httpOptions);
     }
 
-    postPago(pago: PagoPost): Observable<Persona> {
-        return new Observable(httpMock);
+    postPago(personaId: number, pago: PagoPost) {
+        const pagoPostUrl = this.personasUrl + '/' + personaId + '/pagos';
+        return this.http.post(pagoPostUrl, pago, httpOptions);
     }
 
     deletePago(id: number): Observable<number> {

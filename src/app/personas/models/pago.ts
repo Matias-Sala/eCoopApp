@@ -13,6 +13,5 @@ export interface PagoPost {
     conceptoId: number;
     cuota: number;
     valor: number;
-    personaId: number;
 
 }

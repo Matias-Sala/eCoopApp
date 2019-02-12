@@ -42,8 +42,8 @@ export class PersonaResumeComponent implements OnInit {
     this.persona = this._store.pipe(select(selectSelectedPersona));
 
     this.route.params.subscribe((params: Params) => {
-      this.personaId = params['id'];
-      this._store.dispatch(new GetPersona(this.personaId));
+      this.personaId = parseInt(params['id'], 10);
+      this._store.dispatch(new GetPersona({personaId: this.personaId}));
     });
   }
 
@@ -64,7 +64,7 @@ export class PersonaResumeComponent implements OnInit {
 
   deletePago(id: number) {
     if (confirm('Esta seguro que quiere eliminar el pago?')) {
-      this._store.dispatch(new DeletePago(id));
+      this._store.dispatch(new DeletePago({pagoId: id}));
     }
   }
 }
@@ -149,10 +149,11 @@ export class PersonaResumeDialogComponent implements OnInit {
     const pago: PagoPost = {
       conceptoId: this.pagoFormGroup.value.selectConcepto.id,
       cuota: this.pagoFormGroup.value.cuota,
-      valor: this.pagoFormGroup.get('valor').value,
-      personaId: this.data.personaId
+      valor: this.pagoFormGroup.get('valor').value
     };
 
-    this._store.dispatch(new PostPago(pago));
+    console.log('guardar');
+
+    this._store.dispatch(new PostPago({personaId: this.data.personaId, pago: pago}));
   }
 }

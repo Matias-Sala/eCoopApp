@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, OnDestroy, Input, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription, Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';

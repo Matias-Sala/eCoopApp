@@ -37,7 +37,7 @@ export class PersonaEffects {
     postPago$ = this._actions$.pipe(
         ofType(EPersonaActions.PostPago),
         map((action: PostPago) => action.payload),
-        switchMap(pago => this._personaService.postPago(pago)),
+        switchMap(payload => this._personaService.postPago(payload.personaId, payload.pago)),
         map(_ => new PostPagoSuccess()),
         catchError(err => {
             alert(err);
@@ -49,8 +49,8 @@ export class PersonaEffects {
     deletePago$ = this._actions$.pipe(
         ofType(EPersonaActions.DeletePago),
         map((action: DeletePago) => action.payload),
-        switchMap(id => this._personaService.deletePago(id)),
-        map(id => new DeletePagoSuccess(id)),
+        switchMap(payload => this._personaService.deletePago(payload.pagoId)),
+        map(id => new DeletePagoSuccess({pagoId: id})),
         catchError(err => {
             alert(err);
             return of(new ErrorOccurred(err));

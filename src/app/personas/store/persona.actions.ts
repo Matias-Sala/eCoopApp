@@ -26,12 +26,12 @@ export class GetPersonasSuccess implements Action {
 
 export class GetPersona implements Action {
     public readonly type = EPersonaActions.GetPersona;
-    constructor(public payload: number) {}
+    constructor(public payload: {personaId: number}) {}
 }
 
 export class PostPago implements Action {
     public readonly type = EPersonaActions.PostPago;
-    constructor(public payload: PagoPost) {}
+    constructor(public payload: {personaId: number, pago: PagoPost}) {}
 }
 
 export class PostPagoSuccess implements Action {
@@ -40,12 +40,12 @@ export class PostPagoSuccess implements Action {
 
 export class DeletePago implements Action {
     public readonly type = EPersonaActions.DeletePago;
-    constructor(public payload: number) {}
+    constructor(public payload: {pagoId: number}) {}
 }
 
 export class DeletePagoSuccess implements Action {
     public readonly type = EPersonaActions.DeletePagoSuccess;
-    constructor(public payload: number) {}
+    constructor(public payload: {pagoId: number}) {}
 }
 
 export class PagoEnd implements Action {

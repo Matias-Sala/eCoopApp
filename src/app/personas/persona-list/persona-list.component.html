@@ -27,7 +27,7 @@
         <mat-sidenav-content>
             <div>
                 <cdk-virtual-scroll-viewport [itemSize]="50" class="example-viewport">
-                    <a *cdkVirtualFor="let persona of personasFiltered | async ; let i = index" (click)="onResumePersona(i)"
+                    <a *cdkVirtualFor="let persona of personasFiltered | async" (click)="onResumePersona(persona.id)"
                         class="list-item">
                         <div class="mat-list-item-content">
                             <div matRipple class="mat-item-icon">
