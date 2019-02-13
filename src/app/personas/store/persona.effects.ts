@@ -11,7 +11,9 @@ import {
     PostPagoSuccess,
     ErrorOccurred,
     DeletePago,
-    DeletePagoSuccess
+    DeletePagoSuccess,
+    GetPersona,
+    GetPersonaSuccess
 } from './persona.actions';
 import { PersonaService } from '../persona.service';
 import { of, Observable } from 'rxjs';
@@ -32,17 +34,24 @@ export class PersonaEffects {
             )
         ));
 
+    @Effect()
+    getPersona$ = this._actions$.pipe(
+        ofType(EPersonaActions.GetPersona),
+        map((action: GetPersona) => action.payload),
+        switchMap(payload =>
+            this._personaService.getPadre(payload.personaId).pipe(
+                map(data => {
+                    return (new GetPersonaSuccess({ persona: data }));
+                }),
+            )
+        ));
 
     @Effect()
     postPago$ = this._actions$.pipe(
         ofType(EPersonaActions.PostPago),
         map((action: PostPago) => action.payload),
         switchMap(payload => this._personaService.postPago(payload.personaId, payload.pago)),
-        map(_ => new PostPagoSuccess()),
-        catchError(err => {
-            alert(err);
-            return of(new ErrorOccurred(err));
-        })
+        map(_ => new PostPagoSuccess())
     );
 
     @Effect()
@@ -50,7 +59,7 @@ export class PersonaEffects {
         ofType(EPersonaActions.DeletePago),
         map((action: DeletePago) => action.payload),
         switchMap(payload => this._personaService.deletePago(payload.pagoId)),
-        map(id => new DeletePagoSuccess({pagoId: id})),
+        map(id => new DeletePagoSuccess({ pagoId: id })),
         catchError(err => {
             alert(err);
             return of(new ErrorOccurred(err));

@@ -5,7 +5,7 @@ import { Store, select } from '@ngrx/store';
 
 import { IAppState } from 'src/app/store/app.state';
 import { selectPersonaList } from '../store/persona.selectors';
-import { GetPersonas, GetPersona } from '../store/persona.actions';
+import { GetPersonas } from '../store/persona.actions';
 import { Persona } from '../models/persona';
 import { map } from 'rxjs/operators';
 
@@ -20,6 +20,7 @@ export class PersonaListComponent implements OnInit, OnDestroy {
   titulo = 'Padres';
   personasFiltered: Observable<Persona[]>;
   subscription: Subscription;
+  showprogressbar = false;
   @Input() index: number;
 
   personas$: Observable<Persona[]>;

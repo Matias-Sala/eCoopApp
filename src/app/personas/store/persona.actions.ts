@@ -7,6 +7,8 @@ export enum EPersonaActions {
     GetPersonas = '[Persona] Get Personas',
     GetPersonasSuccess = '[Persona] Get Personas Success',
     GetPersona = '[Persona] Get Persona',
+    GetPersonaSuccess = '[Persona] Get Persona Success',
+    FindPersona = '[Persona] Find Persona',
     PostPago = '[Persona] Post Pago',
     PostPagoSuccess = '[Persona] Post Pago Success',
     DeletePago = '[Persona] Delete Pago',
@@ -24,9 +26,19 @@ export class GetPersonasSuccess implements Action {
     constructor(public payload: Persona[]) {}
 }
 
+export class FindPersona implements Action {
+    public readonly type = EPersonaActions.FindPersona;
+    constructor(public payload: {personaId: number}) {}
+}
+
 export class GetPersona implements Action {
     public readonly type = EPersonaActions.GetPersona;
     constructor(public payload: {personaId: number}) {}
+}
+
+export class GetPersonaSuccess implements Action {
+    public readonly type = EPersonaActions.GetPersonaSuccess;
+    constructor(public payload: {persona: Persona}) {}
 }
 
 export class PostPago implements Action {
@@ -58,8 +70,9 @@ export class ErrorOccurred implements Action {
 }
 
 export type PersonaActions = GetPersonas |
+                             GetPersonaSuccess |
                              GetPersonasSuccess |
-                             GetPersona |
+                             FindPersona |
                              PostPago |
                              PostPagoSuccess |
                              DeletePago |

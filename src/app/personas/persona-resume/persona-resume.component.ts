@@ -10,7 +10,7 @@ import { Persona } from '../models/persona';
 import { PagoPost } from '../models/pago';
 import { IAppState } from 'src/app/store/app.state';
 import { selectSelectedPersona, selectPagoPostSuccess } from '../store/persona.selectors';
-import { GetPersona, PostPago, PagoEnd, DeletePago } from '../store/persona.actions';
+import { FindPersona, PostPago, PagoEnd, DeletePago, GetPersona } from '../store/persona.actions';
 import { Concepto } from '../models/concepto';
 import { GetConceptos } from '../store/concepto.actions';
 import { selectConceptoList } from '../store/concepto.selectors';
@@ -43,7 +43,7 @@ export class PersonaResumeComponent implements OnInit {
 
     this.route.params.subscribe((params: Params) => {
       this.personaId = parseInt(params['id'], 10);
-      this._store.dispatch(new GetPersona({personaId: this.personaId}));
+      this._store.dispatch(new FindPersona({personaId: this.personaId}));
     });
   }
 
@@ -126,6 +126,7 @@ export class PersonaResumeDialogComponent implements OnInit {
 
     this.pagoCreated.subscribe(ok => {
       if (ok) {
+        this._store.dispatch(new GetPersona({personaId: this.data.personaId}));
         this._store.dispatch(new PagoEnd);
         this.onNoClick();
       }

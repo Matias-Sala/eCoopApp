@@ -13,7 +13,8 @@ import {
         MatDialogModule,
         MatSelectModule,
         MatSnackBarModule,
-        MatRippleModule
+        MatRippleModule,
+        MatProgressBarModule
 } from '@angular/material';
 
 import { ScrollDispatchModule } from '@angular/cdk/scrolling';
@@ -32,7 +33,8 @@ import { ScrollDispatchModule } from '@angular/cdk/scrolling';
                 MatSelectModule,
                 MatSnackBarModule,
                 ScrollDispatchModule,
-                MatRippleModule],
+                MatRippleModule,
+                MatProgressBarModule],
         exports: [MatButtonModule,
                 MatCheckboxModule,
                 MatToolbarModule,
@@ -46,7 +48,8 @@ import { ScrollDispatchModule } from '@angular/cdk/scrolling';
                 MatSelectModule,
                 MatSnackBarModule,
                 ScrollDispatchModule,
-                MatRippleModule],
+                MatRippleModule,
+                MatProgressBarModule],
 })
 
 export class MaterialModule { }

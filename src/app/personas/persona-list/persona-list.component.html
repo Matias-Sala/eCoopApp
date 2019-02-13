@@ -5,7 +5,8 @@
         </button>
         <span>{{ titulo }}</span>
         <span class="bar-spacer"></span>
-        <button mat-button matSuffix mat-icon-button aria-label="Buscar" (click)="showSearch = !showSearch">
+        <button mat-button matSuffix mat-icon-button aria-label="Buscar" 
+            (click)="showSearch = !showSearch" [disabled]="(personasFiltered | async) == null">
             <mat-icon>search</mat-icon>
         </button>
     </mat-toolbar>

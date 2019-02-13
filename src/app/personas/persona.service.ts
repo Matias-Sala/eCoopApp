@@ -101,6 +101,11 @@ export class PersonaService {
         return this.http.get<Persona[]>(padresUrl, httpOptions);
     }
 
+    getPadre(id: number): Observable<Persona> {
+        const padreUrl = this.personasUrl + '/' + id;
+        return this.http.get<Persona>(padreUrl, httpOptions);
+    }
+
     postPago(personaId: number, pago: PagoPost) {
         const pagoPostUrl = this.personasUrl + '/' + personaId + '/pagos';
         return this.http.post(pagoPostUrl, pago, httpOptions);

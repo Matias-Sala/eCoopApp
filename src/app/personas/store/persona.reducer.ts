@@ -10,8 +10,26 @@ export function personaReducer(state: IPersonaState = initialPersonaState, actio
                 personas: action.payload
             };
         }
-        case EPersonaActions.GetPersona: {
-            const selectedPersona = {...state.personas.find(p => p.id === action.payload.personaId)};
+
+        case EPersonaActions.GetPersonaSuccess: {
+
+            const index = state.personas.findIndex(p => p.id === action.payload.persona.id);
+            const persona = state.personas[index];
+            const personaUpdated = {
+                ...persona,
+                ...action.payload.persona };
+            const personas = [...state.personas];
+            personas[index] = personaUpdated;
+
+            return {
+                ...state,
+                personas: personas,
+                selectedPersona: personas[index]
+            };
+        }
+
+        case EPersonaActions.FindPersona: {
+            const selectedPersona = { ...state.personas.find(p => p.id === action.payload.personaId) };
             return {
                 ...state,
                 selectedPersona: selectedPersona
@@ -39,7 +57,7 @@ export function personaReducer(state: IPersonaState = initialPersonaState, actio
             };
         }
         case EPersonaActions.DeletePagoSuccess: {
-            const persona = {...state.selectedPersona};
+            const persona = { ...state.selectedPersona };
             persona.pagos.splice(persona.pagos
                 .findIndex(pago => pago.id === state.selectedPagoId), 1);
             return {
