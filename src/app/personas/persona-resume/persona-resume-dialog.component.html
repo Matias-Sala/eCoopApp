@@ -1,4 +1,4 @@
-<form [formGroup]="pagoFormGroup" (ngSubmit)="onSubmit()">
+<form [formGroup]="pagoFormGroup">
   <h1 mat-dialog-title>Nuevo Pago</h1>
   <div mat-dialog-content>
     <mat-form-field>
@@ -22,6 +22,7 @@
   </div>
   <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()">Cancelar</button>
-    <button mat-button type="submit" [disabled]="!pagoFormGroup.valid">Ok</button>
+    <button mat-button [disabled]="!pagoFormGroup.valid"
+    [mat-dialog-close]="pagoFormGroup" cdkFocusInitial>Ok</button>
   </div>
 </form>

@@ -111,7 +111,8 @@ export class PersonaService {
         return this.http.post(pagoPostUrl, pago, httpOptions);
     }
 
-    deletePago(id: number): Observable<number> {
-        return new Observable(httpMock);
+    deletePago(id: number, personaId: number) {
+        const pagoDeleteUrl = this.personasUrl + '/' + personaId + '/pagos/' + id;
+        return this.http.delete(pagoDeleteUrl, httpOptions);
     }
 }

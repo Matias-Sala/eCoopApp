@@ -1,11 +1,13 @@
-import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
+import { Injectable, Injector } from '@angular/core';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
 import { IAppState } from '../store/app.state';
 import { ILoginState } from '../login/store/login.state';
 import { selectLogin } from '../login/store/login.selectors';
+import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -24,7 +26,21 @@ export class JwtInterceptor implements HttpInterceptor {
                 }
             });
         }
-
         return next.handle(request);
+    }
+}
+
+@Injectable()
+export class ErrorInterceptor implements HttpInterceptor {
+    constructor(private _injector: Injector) { }
+
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        return next.handle(req).pipe(tap(event => { }, err => {
+            if (err.status === 404) {
+                const router = this._injector.get(Router);
+                router.navigate(['/404']);
+            }
+        })
+        );
     }
 }

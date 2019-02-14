@@ -10,7 +10,6 @@ export function personaReducer(state: IPersonaState = initialPersonaState, actio
                 personas: action.payload
             };
         }
-
         case EPersonaActions.GetPersonaSuccess: {
 
             const index = state.personas.findIndex(p => p.id === action.payload.persona.id);
@@ -27,7 +26,6 @@ export function personaReducer(state: IPersonaState = initialPersonaState, actio
                 selectedPersona: personas[index]
             };
         }
-
         case EPersonaActions.FindPersona: {
             const selectedPersona = { ...state.personas.find(p => p.id === action.payload.personaId) };
             return {
@@ -35,25 +33,22 @@ export function personaReducer(state: IPersonaState = initialPersonaState, actio
                 selectedPersona: selectedPersona
             };
         }
-
         case EPersonaActions.PostPagoSuccess: {
             return {
                 ...state,
                 pagoCreated: true
             };
         }
-
         case EPersonaActions.PagoEnd: {
             return {
                 ...state,
                 pagoCreated: false
             };
         }
-
         case EPersonaActions.DeletePago: {
             return {
                 ...state,
-                selectedPagoId: action.payload.pagoId
+                selectedPagoId: action.payload.id
             };
         }
         case EPersonaActions.DeletePagoSuccess: {
@@ -63,6 +58,12 @@ export function personaReducer(state: IPersonaState = initialPersonaState, actio
             return {
                 ...state,
                 selectedPersona: persona
+            };
+        }
+        case EPersonaActions.EffectError: {
+            return {
+                ...state,
+                effectError: action.payload.message
             };
         }
         default: {

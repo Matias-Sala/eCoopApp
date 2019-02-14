@@ -14,7 +14,7 @@ export enum EPersonaActions {
     DeletePago = '[Persona] Delete Pago',
     DeletePagoSuccess = '[Persona] Delete Pago Success',
     PagoEnd = '[Pago] Pago End',
-    ErrorOccurred = '[Persona] Erro Occurred'
+    EffectError = '[Persona] Erro Occurred'
 }
 
 export class GetPersonas implements Action {
@@ -52,21 +52,21 @@ export class PostPagoSuccess implements Action {
 
 export class DeletePago implements Action {
     public readonly type = EPersonaActions.DeletePago;
-    constructor(public payload: {pagoId: number}) {}
+    constructor(public payload: {id: number, personaId: number}) {}
 }
 
 export class DeletePagoSuccess implements Action {
     public readonly type = EPersonaActions.DeletePagoSuccess;
-    constructor(public payload: {pagoId: number}) {}
+    constructor(public payload: {id: number}) {}
 }
 
 export class PagoEnd implements Action {
     public readonly type = EPersonaActions.PagoEnd;
 }
 
-export class ErrorOccurred implements Action {
-    public readonly type = EPersonaActions.ErrorOccurred;
-    constructor(public payload: String) {}
+export class EffectError implements Action {
+    public readonly type = EPersonaActions.EffectError;
+    constructor(public payload: {message: string}) {}
 }
 
 export type PersonaActions = GetPersonas |
@@ -77,5 +77,5 @@ export type PersonaActions = GetPersonas |
                              PostPagoSuccess |
                              DeletePago |
                              DeletePagoSuccess |
-                             ErrorOccurred |
+                             EffectError |
                              PagoEnd;

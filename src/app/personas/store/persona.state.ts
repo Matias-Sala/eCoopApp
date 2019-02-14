@@ -6,11 +6,13 @@ export interface IPersonaState {
     selectedPersona: Persona;
     pagoCreated: boolean;
     selectedPagoId: number;
+    effectError: string;
 }
 
 export const initialPersonaState: IPersonaState = {
     personas: null,
     selectedPersona: null,
     pagoCreated: false,
-    selectedPagoId: null
+    selectedPagoId: null,
+    effectError: null
 };

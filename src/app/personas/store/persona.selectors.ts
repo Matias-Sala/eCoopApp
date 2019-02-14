@@ -18,3 +18,8 @@ export const selectPagoPostSuccess = createSelector(
     selectPersonas,
     (state: IPersonaState) => state.pagoCreated
 );
+
+export const selectErrors = createSelector(
+    selectPersonas,
+    (state: IPersonaState) => state.effectError
+);

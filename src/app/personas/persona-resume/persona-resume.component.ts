@@ -9,7 +9,7 @@ import { Store, select, _STORE_REDUCERS } from '@ngrx/store';
 import { Persona } from '../models/persona';
 import { PagoPost } from '../models/pago';
 import { IAppState } from 'src/app/store/app.state';
-import { selectSelectedPersona, selectPagoPostSuccess } from '../store/persona.selectors';
+import { selectSelectedPersona, selectPagoPostSuccess, selectErrors } from '../store/persona.selectors';
 import { FindPersona, PostPago, PagoEnd, DeletePago, GetPersona } from '../store/persona.actions';
 import { Concepto } from '../models/concepto';
 import { GetConceptos } from '../store/concepto.actions';
@@ -31,6 +31,8 @@ export class PersonaResumeComponent implements OnInit {
 
   persona: Observable<Persona>;
   personaId: number;
+  pagoCreated: Observable<boolean>;
+  errors: Observable<string>;
 
   constructor(private _store: Store<IAppState>,
     private location: Location,
@@ -41,10 +43,24 @@ export class PersonaResumeComponent implements OnInit {
 
     this.persona = this._store.pipe(select(selectSelectedPersona));
 
+    this._store.pipe(select(selectPagoPostSuccess)).subscribe(ok => {
+      if (ok) {
+        this._store.dispatch(new GetPersona({ personaId: this.personaId }));
+        this._store.dispatch(new PagoEnd);
+      }
+    });
+
+    this._store.pipe(select(selectErrors)).subscribe(err => {
+      if (err != null) {
+        alert(err);
+      }
+    });
+
     this.route.params.subscribe((params: Params) => {
       this.personaId = parseInt(params['id'], 10);
-      this._store.dispatch(new FindPersona({personaId: this.personaId}));
+      this._store.dispatch(new FindPersona({ personaId: this.personaId }));
     });
+
   }
 
   openDialog(): void {
@@ -54,7 +70,15 @@ export class PersonaResumeComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      console.log('The dialog was closed' + result);
+      const pago: PagoPost = {
+        conceptoId: result.value.selectConcepto.id,
+        cuota: result.value.cuota,
+        valor: result.get('valor').value
+      };
+
+      this._store.dispatch(new PostPago({ personaId: this.personaId, pago: pago }));
+
     });
   }
 
@@ -64,7 +88,7 @@ export class PersonaResumeComponent implements OnInit {
 
   deletePago(id: number) {
     if (confirm('Esta seguro que quiere eliminar el pago?')) {
-      this._store.dispatch(new DeletePago({pagoId: id}));
+      this._store.dispatch(new DeletePago({ id: id, personaId: this.personaId }));
     }
   }
 }
@@ -80,7 +104,7 @@ export class PersonaResumeDialogComponent implements OnInit {
   conceptos: Concepto[];
   cuotas: number[];
   personaId: number;
-  pagoCreated: Observable<boolean>;
+
 
   constructor(
     public dialogRef: MatDialogRef<PersonaResumeDialogComponent>,
@@ -90,7 +114,6 @@ export class PersonaResumeDialogComponent implements OnInit {
   ngOnInit() {
 
     this.obsConceptos = this._store.pipe(select(selectConceptoList));
-    this.pagoCreated = this._store.pipe(select(selectPagoPostSuccess));
 
     this._store.dispatch(new GetConceptos());
 
@@ -123,14 +146,6 @@ export class PersonaResumeDialogComponent implements OnInit {
       concepto = cptos[0];
       this.pagoFormGroup.get('selectConcepto').setValue(concepto);
     });
-
-    this.pagoCreated.subscribe(ok => {
-      if (ok) {
-        this._store.dispatch(new GetPersona({personaId: this.data.personaId}));
-        this._store.dispatch(new PagoEnd);
-        this.onNoClick();
-      }
-    });
   }
 
   onNoClick(): void {
@@ -143,18 +158,5 @@ export class PersonaResumeDialogComponent implements OnInit {
       ctas[i] = i + 1;
     }
     return ctas;
-  }
-
-  onSubmit() {
-
-    const pago: PagoPost = {
-      conceptoId: this.pagoFormGroup.value.selectConcepto.id,
-      cuota: this.pagoFormGroup.value.cuota,
-      valor: this.pagoFormGroup.get('valor').value
-    };
-
-    console.log('guardar');
-
-    this._store.dispatch(new PostPago({personaId: this.data.personaId, pago: pago}));
   }
 }

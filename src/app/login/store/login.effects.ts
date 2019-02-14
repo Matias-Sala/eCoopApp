@@ -20,12 +20,10 @@ export class LoginEffects {
     getToken$ = this._action$.pipe(
         ofType(ELoginActions.SignIn),
         map((action: SignIn) => action.payload),
-        switchMap(user => this._loginService.login(user.username, user.password)),
-        map(token => {
-            return new SignInSuccess(token);
-        }),
-        catchError(err => {
-            return of(new ErrorOccurred(err));
-        })
-    );
+        switchMap(user =>
+            this._loginService.login(user.username, user.password).pipe(
+                map(token => new SignInSuccess(token)),
+                catchError(err => of(new ErrorOccurred(err)))
+            )
+        ));
 }
