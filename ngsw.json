@@ -7,7 +7,6 @@
       "installMode": "prefetch",
       "updateMode": "prefetch",
       "urls": [
-        "https://matias-sala.github.io/eCoopApp/favicon.ico",
         "https://matias-sala.github.io/eCoopApp/index.html",
         "https://matias-sala.github.io/eCoopApp/main.81a58657e87f958bc4b8.js",
         "https://matias-sala.github.io/eCoopApp/polyfills.c6871e56cb80756a5498.js",
@@ -22,6 +21,7 @@
       "updateMode": "prefetch",
       "urls": [
         "https://matias-sala.github.io/eCoopApp/assets/config.json",
+        "https://matias-sala.github.io/eCoopApp/assets/icons/coop.svg",
         "https://matias-sala.github.io/eCoopApp/assets/icons/icon-128x128.png",
         "https://matias-sala.github.io/eCoopApp/assets/icons/icon-144x144.png",
         "https://matias-sala.github.io/eCoopApp/assets/icons/icon-152x152.png",
@@ -37,6 +37,7 @@
   "dataGroups": [],
   "hashTable": {
     "https://matias-sala.github.io/eCoopApp/assets/config.json": "99cbabd6e561e7e7a474d8ead5db8873ded8f716",
+    "https://matias-sala.github.io/eCoopApp/assets/icons/coop.svg": "ea2f6542fbb419d2a4959107d0c2be08a336e502",
     "https://matias-sala.github.io/eCoopApp/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
     "https://matias-sala.github.io/eCoopApp/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
     "https://matias-sala.github.io/eCoopApp/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
@@ -45,8 +46,7 @@
     "https://matias-sala.github.io/eCoopApp/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
     "https://matias-sala.github.io/eCoopApp/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
     "https://matias-sala.github.io/eCoopApp/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
-    "https://matias-sala.github.io/eCoopApp/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
-    "https://matias-sala.github.io/eCoopApp/index.html": "5eacd6fbf7961ca81395884489ca06a270cbfc24",
+    "https://matias-sala.github.io/eCoopApp/index.html": "82f2228a87733bee0aef90574f119f427c7b102a",
     "https://matias-sala.github.io/eCoopApp/main.81a58657e87f958bc4b8.js": "48df4da7c30199f58bd2666130a96f711b035f49",
     "https://matias-sala.github.io/eCoopApp/polyfills.c6871e56cb80756a5498.js": "ce68d153e9b9b6d26b625069c0ee99ae09c6f255",
     "https://matias-sala.github.io/eCoopApp/runtime.ec2944dd8b20ec099bf3.js": "b62956c2192bfe5516d6374e753773901ed50ec5",
