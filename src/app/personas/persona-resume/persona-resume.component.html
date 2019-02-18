@@ -2,21 +2,17 @@
   <button mat-icon-button class="toolBar-icon">
     <mat-icon aria-label="Side nav toggle icon" (tap)="backToPrevious()">arrow_back</mat-icon>
   </button>
-  <span>{{(persona | async).nombre + " " + (persona | async).apellido}}</span>  
+  <span>{{(persona | async).nombre + " " + (persona | async).apellido}}</span>
 </mat-toolbar>
-<div class="fab-container">
-    <button mat-mini-fab color="accent" class="fab-toggler" (click)="openDialog()">
-        <mat-icon mat-list-icon>edit</mat-icon>
-    </button>
-</div> 
-<mat-tab-group dynamicHeight color="accent" backgroundColor="primary">    
+
+<mat-tab-group color="accent" backgroundColor="primary" style="height: -webkit-fill-available">
   <mat-tab label="Datos">
     <mat-list>
       <mat-list-item>
         <mat-icon mat-list-icon color="accent">location_on</mat-icon>
-        <h4 mat-line><b> {{(persona | async).direccion.calle}} 
-          {{(persona | async).direccion.dpto}} 
-          {{(persona | async).direccion.numero}} </b></h4>
+        <h4 mat-line><b> {{(persona | async).direccion.calle}}
+            {{(persona | async).direccion.dpto}}
+            {{(persona | async).direccion.numero}} </b></h4>
         <p mat-line> Dirección </p>
       </mat-list-item>
       <mat-divider [inset]="true"></mat-divider>
@@ -26,6 +22,11 @@
         <p mat-line> Teléfono </p>
       </mat-list-item>
     </mat-list>
+    <div class="fab-container">
+      <button mat-fab color="accent" class="fab-toggler" (click)="editPersona()">
+        <mat-icon mat-list-icon>edit</mat-icon>
+      </button>
+    </div>
   </mat-tab>
   <mat-tab label="Hijos">
     <mat-list>
@@ -36,16 +37,22 @@
       </mat-list-item>
     </mat-list>
   </mat-tab>
-  <mat-tab label="Pagos">      
-      <mat-list>        
-          <mat-list-item *ngFor="let pago of (persona | async).pagos">
-            <mat-icon mat-list-icon color="accent">attach_money</mat-icon>
-            <h4 mat-line><b>{{ pago.concepto }}</b></h4>
-            <p mat-line> {{ 'Cuota: ' + ' ' + pago.cuota + ' - Valor: ' + pago.valor}} </p>
-            <button mat-icon-button (click)="deletePago(pago.id)">
-              <mat-icon aria-label="Eliminar pago" color="accent">delete</mat-icon>
-            </button>
-          </mat-list-item>
-        </mat-list>
+  <mat-tab label="Pagos">
+    <mat-list>
+      <mat-list-item *ngFor="let pago of (persona | async).pagos">
+        <mat-icon mat-list-icon color="accent">attach_money</mat-icon>
+        <h4 mat-line><b>{{ pago.concepto }}</b></h4>
+        <p mat-line> {{ 'Cuota: ' + ' ' + pago.cuota + ' - Valor: ' + pago.valor}} </p>
+        <button mat-icon-button (click)="deletePago(pago.id)">
+          <mat-icon aria-label="Eliminar pago" color="accent">delete</mat-icon>
+        </button>
+      </mat-list-item>
+    </mat-list>
+    <div class="fab-container">
+      <button mat-fab color="accent" class="fab-toggler" (click)="openDialog()">
+        <mat-icon mat-list-icon>add</mat-icon>
+      </button>
+    </div>
   </mat-tab>
 </mat-tab-group>
+<!---->

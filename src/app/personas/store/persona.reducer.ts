@@ -7,7 +7,8 @@ export function personaReducer(state: IPersonaState = initialPersonaState, actio
         case EPersonaActions.GetPersonasSuccess: {
             return {
                 ...state,
-                personas: action.payload
+                personas: action.payload,
+                reloadPersonas: false
             };
         }
         case EPersonaActions.GetPersonaSuccess: {
@@ -23,26 +24,37 @@ export function personaReducer(state: IPersonaState = initialPersonaState, actio
             return {
                 ...state,
                 personas: personas,
-                selectedPersona: personas[index]
+                selectedPersona: personas[index],
+                reloadPersona: false
             };
         }
-        case EPersonaActions.FindPersona: {
-            const selectedPersona = { ...state.personas.find(p => p.id === action.payload.personaId) };
+        case EPersonaActions.PostPadreSuccess: {
             return {
                 ...state,
-                selectedPersona: selectedPersona
+                reloadPersonas: true,
+                effectError: null
+            };
+        }
+        case EPersonaActions.PutPadreSuccess: {
+            const index = state.personas.findIndex(p => p.id === action.payload.padre.id);
+            const padre = state.personas[index];
+            const padreUpdated = {
+                ...padre ,
+                ...action.payload.padre };
+            const personas = [...state.personas];
+            personas[index] = padreUpdated;
+
+            return {
+                ...state,
+                personas: personas,
+                selectedPersona: personas[index]
             };
         }
         case EPersonaActions.PostPagoSuccess: {
             return {
                 ...state,
-                pagoCreated: true
-            };
-        }
-        case EPersonaActions.PagoEnd: {
-            return {
-                ...state,
-                pagoCreated: false
+                reloadPersona: true,
+                effectError: null
             };
         }
         case EPersonaActions.DeletePago: {

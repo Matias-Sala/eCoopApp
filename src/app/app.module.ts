@@ -28,6 +28,7 @@ import { LoginComponent } from './login/login/login.component';
 import { LoginEffects } from './login/store/login.effects';
 import { LoginService } from './login/login.service';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
+import { PersonaEditComponent } from './personas/persona-edit/persona-edit.component';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -37,7 +38,8 @@ import { JwtInterceptor } from './helpers/jwt.interceptor';
     PersonaListComponent,
     PersonaResumeComponent,
     PersonaResumeDialogComponent,
-    LoginComponent
+    LoginComponent,
+    PersonaEditComponent
   ],
   entryComponents: [PersonaResumeComponent, PersonaResumeDialogComponent],
   imports: [

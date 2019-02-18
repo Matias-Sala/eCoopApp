@@ -14,7 +14,8 @@ import {
         MatSelectModule,
         MatSnackBarModule,
         MatRippleModule,
-        MatProgressBarModule
+        MatProgressBarModule,
+        MatProgressSpinnerModule
 } from '@angular/material';
 
 import { ScrollDispatchModule } from '@angular/cdk/scrolling';
@@ -34,7 +35,8 @@ import { ScrollDispatchModule } from '@angular/cdk/scrolling';
                 MatSnackBarModule,
                 ScrollDispatchModule,
                 MatRippleModule,
-                MatProgressBarModule],
+                MatProgressBarModule,
+                MatProgressSpinnerModule],
         exports: [MatButtonModule,
                 MatCheckboxModule,
                 MatToolbarModule,
@@ -49,7 +51,8 @@ import { ScrollDispatchModule } from '@angular/cdk/scrolling';
                 MatSnackBarModule,
                 ScrollDispatchModule,
                 MatRippleModule,
-                MatProgressBarModule],
+                MatProgressBarModule,
+                MatProgressSpinnerModule],
 })
 
 export class MaterialModule { }

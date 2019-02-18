@@ -1,0 +1,50 @@
+<form [formGroup]="personaFormGroup">
+  <mat-toolbar color="primary" class="mat-elevation-z6 header">
+    <button mat-icon-button class="toolBar-icon" (tap)="backToPrevious()">
+      <mat-icon aria-label="Side nav toggle icon">arrow_back</mat-icon>
+    </button>
+    <span>{{ titulo }}</span>
+    <span class="bar-spacer"></span>
+    <button mat-button matSuffix mat-icon-button aria-label="Buscar" (click)="submit()" [disabled]="!personaFormGroup.valid || showProgress">
+      <mat-icon>done</mat-icon>
+    </button>
+  </mat-toolbar>
+  <mat-progress-bar mode="indeterminate" color="accent" *ngIf="showProgress"></mat-progress-bar>
+  <div class="log-card">
+    <mat-list>
+      <mat-list-item>
+        <mat-icon matListIcon class="edit-icon">person</mat-icon>
+        <mat-form-field>
+          <input matInput placeholder="Nombre" type="text" formControlName="nombre">
+        </mat-form-field>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-form-field style="left: 30px;">
+          <input matInput placeholder="Apellido" type="text" formControlName="apellido">
+        </mat-form-field>
+      </mat-list-item>
+      <h3 matSubheader>Dirección</h3>
+      <mat-list-item>
+        <mat-icon matListIcon class="edit-icon">location_on</mat-icon>
+        <mat-form-field> <input matInput placeholder="Calle" type="text" formControlName="calle">
+        </mat-form-field>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-form-field style="left: 30px;">
+          <input matInput placeholder="Dpto" type="text" formControlName="dpto">
+        </mat-form-field>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-form-field style="left: 30px;">
+          <input matInput placeholder="Numero" type="number" formControlName="numero">
+        </mat-form-field>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon matListIcon class="edit-icon">phone</mat-icon>
+        <mat-form-field>
+          <input matInput placeholder="Telefono" type="text" formControlName="telefono">
+        </mat-form-field>
+      </mat-list-item>
+    </mat-list>
+  </div>
+</form>

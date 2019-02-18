@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import { Persona } from '../models/persona';
 import { PagoPost, Pago } from '../models/pago';
+import { Padre } from '../models/post/PadrePost';
 
 
 export enum EPersonaActions {
@@ -8,12 +9,15 @@ export enum EPersonaActions {
     GetPersonasSuccess = '[Persona] Get Personas Success',
     GetPersona = '[Persona] Get Persona',
     GetPersonaSuccess = '[Persona] Get Persona Success',
-    FindPersona = '[Persona] Find Persona',
+    PostPadre = '[Persona] Post Padre',
+    PostPadreSuccess = '[Persona] Post Padre Success',
+    PutPadre = '[Persona] Put Padre',
+    PutPadreSuccess = '[Persona] Put Padre Success',
+    PostPersonaEnd = '[Persona] Post Persona End',
     PostPago = '[Persona] Post Pago',
     PostPagoSuccess = '[Persona] Post Pago Success',
     DeletePago = '[Persona] Delete Pago',
     DeletePagoSuccess = '[Persona] Delete Pago Success',
-    PagoEnd = '[Pago] Pago End',
     EffectError = '[Persona] Erro Occurred'
 }
 
@@ -26,11 +30,6 @@ export class GetPersonasSuccess implements Action {
     constructor(public payload: Persona[]) {}
 }
 
-export class FindPersona implements Action {
-    public readonly type = EPersonaActions.FindPersona;
-    constructor(public payload: {personaId: number}) {}
-}
-
 export class GetPersona implements Action {
     public readonly type = EPersonaActions.GetPersona;
     constructor(public payload: {personaId: number}) {}
@@ -39,6 +38,29 @@ export class GetPersona implements Action {
 export class GetPersonaSuccess implements Action {
     public readonly type = EPersonaActions.GetPersonaSuccess;
     constructor(public payload: {persona: Persona}) {}
+}
+
+export class PostPadre implements Action {
+    public readonly type = EPersonaActions.PostPadre;
+    constructor(public payload: {padre: Persona}) {}
+}
+
+export class PostPadreSuccess implements Action {
+    public readonly type = EPersonaActions.PostPadreSuccess;
+}
+
+export class PutPadre implements Action {
+    public readonly type = EPersonaActions.PutPadre;
+    constructor(public payload: {padre: Persona}) {}
+}
+
+export class PutPadreSuccess implements Action {
+    public readonly type = EPersonaActions.PutPadreSuccess;
+    constructor(public payload: {padre: Persona}) {}
+}
+
+export class PostPersonaEnd implements Action {
+    public readonly type = EPersonaActions.PostPersonaEnd;
 }
 
 export class PostPago implements Action {
@@ -60,10 +82,6 @@ export class DeletePagoSuccess implements Action {
     constructor(public payload: {id: number}) {}
 }
 
-export class PagoEnd implements Action {
-    public readonly type = EPersonaActions.PagoEnd;
-}
-
 export class EffectError implements Action {
     public readonly type = EPersonaActions.EffectError;
     constructor(public payload: {message: string}) {}
@@ -72,10 +90,13 @@ export class EffectError implements Action {
 export type PersonaActions = GetPersonas |
                              GetPersonaSuccess |
                              GetPersonasSuccess |
-                             FindPersona |
+                             PostPadre |
+                             PostPadreSuccess |
+                             PutPadre |
+                             PutPadreSuccess |
+                             PostPersonaEnd |
                              PostPago |
                              PostPagoSuccess |
                              DeletePago |
                              DeletePagoSuccess |
-                             EffectError |
-                             PagoEnd;
+                             EffectError;

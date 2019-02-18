@@ -20,7 +20,6 @@ export class PersonaListComponent implements OnInit, OnDestroy {
   titulo = 'Padres';
   personasFiltered: Observable<Persona[]>;
   subscription: Subscription;
-  showprogressbar = false;
   @Input() index: number;
 
   personas$: Observable<Persona[]>;
@@ -44,8 +43,8 @@ export class PersonaListComponent implements OnInit, OnDestroy {
 
   }
 
-  onResumePersona(index: number) {
-    this._router.navigate(['resumen/' + index], { relativeTo: this._route });
+  onResumePersona(id: number) {
+    this._router.navigate(['resumen/' + id], { relativeTo: this._route });
   }
 
   filterPersons() {
@@ -56,5 +55,9 @@ export class PersonaListComponent implements OnInit, OnDestroy {
       })
       )
     );
+  }
+
+  addSocio() {
+    this._router.navigate(['new'], { relativeTo: this._route });
   }
 }

@@ -3,10 +3,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { Persona } from './models/persona';
+import { Persona, ToPadre } from './models/persona';
 import { Direccion } from './models/direccion';
 import { Pago, PagoPost } from './models/pago';
 import { baseUrl, handleError, httpOptions } from '../service.config';
+import { Padre } from './models/post/PadrePost';
 
 function personasSubscriber(observer) {
 
@@ -104,6 +105,16 @@ export class PersonaService {
     getPadre(id: number): Observable<Persona> {
         const padreUrl = this.personasUrl + '/' + id;
         return this.http.get<Persona>(padreUrl, httpOptions);
+    }
+
+    postPadre(persona: Persona) {
+        const padrePostUrl = this.personasUrl + '/parent';
+        return this.http.post(padrePostUrl, ToPadre(persona), httpOptions);
+    }
+
+    putPadre(persona: Persona) {
+        const padrePutUrl = this.personasUrl + '/parent/' + persona.id;
+        return this.http.put(padrePutUrl, ToPadre(persona), httpOptions);
     }
 
     postPago(personaId: number, pago: PagoPost) {

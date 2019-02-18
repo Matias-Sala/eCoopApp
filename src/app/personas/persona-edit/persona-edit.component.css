@@ -1,0 +1,12 @@
+.log-card {
+    display: table;
+    margin: 10% auto;
+}
+
+.bar-spacer {
+    flex: 1 1 auto;
+  }
+
+  .edit-icon {
+    color: gray;
+  }

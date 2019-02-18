@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Inject } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Observable } from 'rxjs';
 import { Store, select, _STORE_REDUCERS } from '@ngrx/store';
@@ -9,13 +9,12 @@ import { Store, select, _STORE_REDUCERS } from '@ngrx/store';
 import { Persona } from '../models/persona';
 import { PagoPost } from '../models/pago';
 import { IAppState } from 'src/app/store/app.state';
-import { selectSelectedPersona, selectPagoPostSuccess, selectErrors } from '../store/persona.selectors';
-import { FindPersona, PostPago, PagoEnd, DeletePago, GetPersona } from '../store/persona.actions';
+import { selectSelectedPersona, selectErrors, selectReloadPersona, selectPersona } from '../store/persona.selectors';
+import { PostPago, DeletePago, GetPersona } from '../store/persona.actions';
 import { Concepto } from '../models/concepto';
 import { GetConceptos } from '../store/concepto.actions';
 import { selectConceptoList } from '../store/concepto.selectors';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DISABLED } from '@angular/forms/src/model';
 
 
 export interface DialogPago {
@@ -36,29 +35,28 @@ export class PersonaResumeComponent implements OnInit {
 
   constructor(private _store: Store<IAppState>,
     private location: Location,
+    private router: Router,
     private route: ActivatedRoute,
     public dialog: MatDialog) { }
 
   ngOnInit() {
 
-    this.persona = this._store.pipe(select(selectSelectedPersona));
-
-    this._store.pipe(select(selectPagoPostSuccess)).subscribe(ok => {
-      if (ok) {
-        this._store.dispatch(new GetPersona({ personaId: this.personaId }));
-        this._store.dispatch(new PagoEnd);
-      }
-    });
+    // this.persona = this._store.pipe(select(selectSelectedPersona));
 
     this._store.pipe(select(selectErrors)).subscribe(err => {
       if (err != null) {
-        alert(err);
+      }
+    });
+
+    this._store.pipe(select(selectReloadPersona)).subscribe(reload => {
+      if (reload) {
+        this._store.dispatch(new GetPersona({ personaId: this.personaId }));
       }
     });
 
     this.route.params.subscribe((params: Params) => {
       this.personaId = parseInt(params['id'], 10);
-      this._store.dispatch(new FindPersona({ personaId: this.personaId }));
+      this.persona = this._store.pipe(select(selectPersona(this.personaId)));
     });
 
   }
@@ -90,6 +88,10 @@ export class PersonaResumeComponent implements OnInit {
     if (confirm('Esta seguro que quiere eliminar el pago?')) {
       this._store.dispatch(new DeletePago({ id: id, personaId: this.personaId }));
     }
+  }
+
+  editPersona() {
+    this.router.navigate(['padres/edit/' + this.personaId]);
   }
 }
 

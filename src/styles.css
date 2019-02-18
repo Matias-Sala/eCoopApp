@@ -4,21 +4,9 @@
 body {
     margin: 0;
     font-family: Roboto, sans-serif;
+    height: -webkit-fill-available;
   }
-  
-  mat-card {
-    max-width: 80%;
-    margin: 2em auto;
-    text-align: left;
-  }
-  
-  mat-toolbar-row {
-    justify-content: space-between;
-  }
-  
-  .done {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    color: white;
+
+  .mat-tab-body-wrapper{
+    flex-grow: 1;
   }

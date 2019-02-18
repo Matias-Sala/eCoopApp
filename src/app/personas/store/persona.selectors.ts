@@ -1,6 +1,7 @@
 import { IAppState } from 'src/app/store/app.state';
-import { createSelector } from '@ngrx/store';
+import { createSelector, MemoizedSelector } from '@ngrx/store';
 import { IPersonaState } from './persona.state';
+import { Persona } from '../models/persona';
 
 const selectPersonas = (state: IAppState) => state.personas;
 
@@ -14,12 +15,25 @@ export const selectSelectedPersona = createSelector(
     (state: IPersonaState) => state.selectedPersona
 );
 
-export const selectPagoPostSuccess = createSelector(
+export function selectPersona(id: number) {
+    return createSelector(
+        selectPersonas,
+        (state: IPersonaState) => state.personas.find(p => p.id === id)
+    );
+}
+
+export const selectReloadPersonas = createSelector(
     selectPersonas,
-    (state: IPersonaState) => state.pagoCreated
+    (state: IPersonaState) => state.reloadPersonas
+);
+
+export const selectReloadPersona = createSelector(
+    selectPersonas,
+    (state: IPersonaState) => state.reloadPersona
 );
 
 export const selectErrors = createSelector(
     selectPersonas,
     (state: IPersonaState) => state.effectError
 );
+

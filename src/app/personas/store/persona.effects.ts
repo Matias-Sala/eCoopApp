@@ -13,7 +13,11 @@ import {
     DeletePago,
     DeletePagoSuccess,
     GetPersona,
-    GetPersonaSuccess
+    GetPersonaSuccess,
+    PostPadre,
+    PostPadreSuccess,
+    PutPadre,
+    PutPadreSuccess
 } from './persona.actions';
 import { PersonaService } from '../persona.service';
 import { of, Observable } from 'rxjs';
@@ -36,10 +40,9 @@ export class PersonaEffects {
 
     @Effect()
     getPersona$ = this._actions$.pipe(
-        ofType(EPersonaActions.GetPersona),
-        map((action: GetPersona) => action.payload),
-        switchMap(payload =>
-            this._personaService.getPadre(payload.personaId).pipe(
+        ofType<GetPersona>(EPersonaActions.GetPersona),
+        switchMap(getPersona =>
+            this._personaService.getPadre(getPersona.payload.personaId).pipe(
                 map(data => {
                     return (new GetPersonaSuccess({ persona: data }));
                 }),
@@ -47,24 +50,45 @@ export class PersonaEffects {
         ));
 
     @Effect()
-    postPago$ = this._actions$.pipe(
-        ofType(EPersonaActions.PostPago),
-        map((action: PostPago) => action.payload),
-        switchMap(payload =>
-            this._personaService.postPago(payload.personaId, payload.pago).pipe(
-                map(_ => new PostPagoSuccess()),
+    postPadre$ = this._actions$.pipe(
+        ofType<PostPadre>(EPersonaActions.PostPadre),
+        switchMap(postPadre =>
+            this._personaService.postPadre(postPadre.payload.padre).pipe(
+                map(_ => new PostPadreSuccess()),
                 catchError(err => of(new EffectError(err)))
             ))
     );
 
     @Effect()
+    putPadre$ = this._actions$.pipe(
+        ofType<PutPadre>(EPersonaActions.PutPadre),
+        switchMap(putPadre =>
+            this._personaService.putPadre(putPadre.payload.padre).pipe(
+                map(() => new PutPadreSuccess({ padre: putPadre.payload.padre })),
+                catchError(err => of(new EffectError(err)))
+            )
+        )
+    );
+
+    @Effect()
+    postPago$ = this._actions$.pipe(
+        ofType<PostPago>(EPersonaActions.PostPago),
+        switchMap(postPago =>
+            this._personaService.postPago(postPago.payload.personaId, postPago.payload.pago).pipe(
+                map(_ => new PostPagoSuccess()),
+                catchError(err => of(new EffectError(err)))
+            )
+        )
+    );
+
+    @Effect()
     deletePago$ = this._actions$.pipe(
-        ofType(EPersonaActions.DeletePago),
-        map((action: DeletePago) => action.payload),
-        switchMap(payload => this._personaService.deletePago(payload.id, payload.personaId).pipe(
-            map(() => new DeletePagoSuccess({ id: payload.personaId })),
+        ofType<DeletePago>(EPersonaActions.DeletePago),
+        switchMap(deletePago => this._personaService.deletePago(deletePago.payload.id, deletePago.payload.personaId).pipe(
+            map(() => new DeletePagoSuccess({ id: deletePago.payload.personaId })),
             catchError(err => of(new EffectError(err)))
-        ))
+        )
+        )
     );
 
     constructor(

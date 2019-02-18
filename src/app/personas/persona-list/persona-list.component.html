@@ -1,22 +1,24 @@
 <div>
     <mat-toolbar color="primary" class="mat-elevation-z6 header" *ngIf="!showSearch">
-        <button mat-icon-button class="toolBar-icon" (click)="sidenav.toggle()">
+        <!--<button mat-icon-button class="toolBar-icon" (click)="sidenav.toggle()">
             <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-        </button>
+        </button>-->
         <span>{{ titulo }}</span>
         <span class="bar-spacer"></span>
-        <button mat-button matSuffix mat-icon-button aria-label="Buscar" 
-            (click)="showSearch = !showSearch" [disabled]="(personasFiltered | async) == null">
+        <button mat-button matSuffix mat-icon-button aria-label="Buscar" (click)="showSearch = !showSearch"
+            [disabled]="(personasFiltered | async) == null">
             <mat-icon>search</mat-icon>
         </button>
     </mat-toolbar>
-    <mat-toolbar class="mat-elevation-z6" *ngIf="showSearch">
-        <button mat-icon-button class="toolBar-icon" (click)="value=''; showSearch = !showSearch; filterPersons()" aria-label="Back" color="primary">
+    <mat-toolbar class="mat-elevation-z6 header" *ngIf="showSearch">
+        <button mat-icon-button class="toolBar-icon" (click)="value=''; showSearch = !showSearch; filterPersons()"
+            aria-label="Back" color="primary">
             <mat-icon aria-label="Cancelar busqueda">arrow_back</mat-icon>
         </button>
         <mat-form-field style="width: 100%; color:gray; margin: 20px" floatLabel="never">
             <input matInput type="text" placeholder="Buscar" [(ngModel)]="value" (keyup)="filterPersons()">
-            <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''; filterPersons()">
+            <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear"
+                (click)="value=''; filterPersons()">
                 <mat-icon>close</mat-icon>
             </button>
         </mat-form-field>
@@ -26,6 +28,7 @@
             <p><button mat-button (click)="sidenav.toggle()">Toggle</button></p>
         </mat-sidenav>
         <mat-sidenav-content>
+            <mat-progress-bar mode="indeterminate" color="accent" *ngIf="(personasFiltered | async) == null"></mat-progress-bar>
             <div>
                 <cdk-virtual-scroll-viewport [itemSize]="50" class="example-viewport">
                     <a *cdkVirtualFor="let persona of personasFiltered | async" (click)="onResumePersona(persona.id)"
@@ -43,6 +46,11 @@
                         </div>
                     </a>
                 </cdk-virtual-scroll-viewport>
+                <div class="fab-container">
+                    <button mat-fab color="accent" class="fab-toggler" (click)="addSocio()">
+                        <mat-icon mat-list-icon>add</mat-icon>
+                    </button>
+                </div>
             </div>
         </mat-sidenav-content>
     </mat-sidenav-container>

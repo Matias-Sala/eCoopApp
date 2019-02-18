@@ -5,14 +5,15 @@ import { PersonaResumeComponent } from './personas/persona-resume/persona-resume
 import { PersonaListComponent } from './personas/persona-list/persona-list.component';
 import { LoginComponent } from './login/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
+import { PersonaEditComponent } from './personas/persona-edit/persona-edit.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent},
-  { path: 'padres', component: PersonasComponent, canActivate: [AuthGuard], children: [
-      { path: '', component: PersonaListComponent},
-      { path: 'resumen/:id', component: PersonaResumeComponent}
-  ] }
+  { path: 'padres', component: PersonaListComponent, canActivate: [AuthGuard]},
+  { path: 'padres/resumen/:id', component: PersonaResumeComponent, canActivate: [AuthGuard]},
+  { path: 'padres/new', component: PersonaEditComponent, canActivate: [AuthGuard]},
+  { path: 'padres/edit/:id', component: PersonaEditComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
