@@ -29,13 +29,16 @@
     </div>
   </mat-tab>
   <mat-tab label="Hijos">
-    <mat-list>
-      <mat-list-item *ngFor="let familiar of (persona | async).familiares">
+    <mat-nav-list>
+      <mat-list-item *ngFor="let familiar of (persona | async).familiares" (click)="editFamiliar(familiar.id)">
         <mat-icon mat-list-icon color="accent">person_pin</mat-icon>
-        <h4 mat-line><b>{{ familiar.nombre + ' ' + familiar.apellido }}</b></h4>
+        <a matLine><b>{{ familiar.nombre + ' ' + familiar.apellido }}</b></a>
         <p mat-line> Nombre </p>
+        <button mat-icon-button (click)="deleteFamiliar(familiar.id)">
+          <mat-icon aria-label="Eliminar familiar" color="accent">delete</mat-icon>
+        </button>
       </mat-list-item>
-    </mat-list>
+    </mat-nav-list>
   </mat-tab>
   <mat-tab label="Pagos">
     <mat-list>

@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 import { Persona } from '../models/persona';
 import { PagoPost, Pago } from '../models/pago';
 import { Padre } from '../models/post/PadrePost';
+import { PagoRealizado } from '../models/pago-realizado';
 
 
 export enum EPersonaActions {
@@ -14,10 +15,14 @@ export enum EPersonaActions {
     PutPadre = '[Persona] Put Padre',
     PutPadreSuccess = '[Persona] Put Padre Success',
     PostPersonaEnd = '[Persona] Post Persona End',
+    DeleteFamiliar = '[Persona] Delete Familiar',
+    DeleteFamiliarSuccess = '[Persona] Delete Familiar Success',
     PostPago = '[Persona] Post Pago',
     PostPagoSuccess = '[Persona] Post Pago Success',
     DeletePago = '[Persona] Delete Pago',
     DeletePagoSuccess = '[Persona] Delete Pago Success',
+    GetPagosRealizados = '[Persona] Get Pagos Realizados',
+    GetPagosRealizadosSuccess = '[Persona] Get Pagos Realizados Success',
     EffectError = '[Persona] Erro Occurred'
 }
 
@@ -38,6 +43,15 @@ export class GetPersona implements Action {
 export class GetPersonaSuccess implements Action {
     public readonly type = EPersonaActions.GetPersonaSuccess;
     constructor(public payload: {persona: Persona}) {}
+}
+
+export class GetPagosRealizados implements Action {
+    public readonly type = EPersonaActions.GetPagosRealizados;
+}
+
+export class GetPagosRealizadosSuccess implements Action {
+    public readonly type = EPersonaActions.GetPagosRealizadosSuccess;
+    constructor(public payload: {pagos: PagoRealizado[]}) {}
 }
 
 export class PostPadre implements Action {
@@ -72,6 +86,16 @@ export class PostPagoSuccess implements Action {
     public readonly type = EPersonaActions.PostPagoSuccess;
 }
 
+export class DeleteFamiliar implements Action {
+    public readonly type = EPersonaActions.DeleteFamiliar;
+    constructor(public payload: {id: number, familiarId: number}) {}
+}
+
+export class DeleteFamiliarSuccess implements Action {
+    public readonly type = EPersonaActions.DeleteFamiliarSuccess;
+    constructor(public payload: {id: number}) {}
+}
+
 export class DeletePago implements Action {
     public readonly type = EPersonaActions.DeletePago;
     constructor(public payload: {id: number, personaId: number}) {}
@@ -90,6 +114,8 @@ export class EffectError implements Action {
 export type PersonaActions = GetPersonas |
                              GetPersonaSuccess |
                              GetPersonasSuccess |
+                             GetPagosRealizados |
+                             GetPagosRealizadosSuccess |
                              PostPadre |
                              PostPadreSuccess |
                              PutPadre |

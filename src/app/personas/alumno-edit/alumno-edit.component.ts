@@ -6,24 +6,24 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Direccion } from '../models/direccion';
 import { PostPadre, GetPersonas, PostPersonaEnd, PutPadre, PutPadreSuccess, EPersonaActions } from '../store/persona.actions';
 import { Observable, Subscription } from 'rxjs';
-import { selectErrors, selectPersona, selectReloadPersonas } from '../store/persona.selectors';
+import { selectErrors, selectPersona, selectReloadPersonas, selectFamiliar } from '../store/persona.selectors';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Persona } from '../models/persona';
 
 @Component({
-  selector: 'app-persona-edit',
-  templateUrl: './persona-edit.component.html',
-  styleUrls: ['./persona-edit.component.css']
+  selector: 'app-alumno-edit',
+  templateUrl: './alumno-edit.component.html',
+  styleUrls: ['./alumno-edit.component.css']
 })
-export class PersonaEditComponent implements OnInit, OnDestroy {
+export class AlumnoEditComponent implements OnInit, OnDestroy {
 
-  titulo = 'Agregar Socio';
+  titulo = 'Agregar Alumno';
   personaFormGroup: FormGroup;
   personaCreated: Observable<boolean>;
   showProgress: boolean;
   isEdit: boolean;
-  paramId: string;
-  personaId: number;
+  familiarId: number;
+  id: number;
   persona: Persona;
   subsc: Subscription;
 
@@ -51,14 +51,14 @@ export class PersonaEditComponent implements OnInit, OnDestroy {
     };
 
     this.route.params.subscribe((params: Params) => {
-      this.paramId = params['id'];
-      console.log(this.paramId);
-
-      if (this.paramId != null) {
-        this.titulo = 'Editar Socio';
-        this.personaId = parseInt(this.paramId, 10);
+      const paramId = params['id'];
+      const paramFamId = params['familiarId'];
+      if (paramId != null && paramFamId != null) {
+        this.titulo = 'Editar Alumno';
+        this.id = parseInt(paramId, 10);
+        this.familiarId = parseInt(paramFamId, 10);
         this.isEdit = true;
-        this._store.pipe(select(selectPersona(this.personaId)))
+        this._store.pipe(select(selectFamiliar(this.id, this.familiarId)))
           .subscribe(p => {
             this.persona = p;
           });
@@ -68,10 +68,7 @@ export class PersonaEditComponent implements OnInit, OnDestroy {
     this.personaFormGroup = new FormGroup({
       'nombre': new FormControl(this.persona.nombre, Validators.required),
       'apellido': new FormControl(this.persona.apellido, Validators.required),
-      'calle': new FormControl(this.persona.direccion.calle),
-      'dpto': new FormControl(this.persona.direccion.dpto),
-      'numero': new FormControl(this.persona.direccion.numero),
-      'telefono': new FormControl(this.persona.telefono),
+      'curso': new FormControl(this.persona.direccion.calle),
     });
 
     this._store.pipe(select(selectReloadPersonas)).subscribe(ok => {

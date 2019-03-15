@@ -8,6 +8,7 @@ import { Direccion } from './models/direccion';
 import { Pago, PagoPost } from './models/pago';
 import { baseUrl, handleError, httpOptions } from '../service.config';
 import { Padre } from './models/post/PadrePost';
+import { PagoRealizado } from './models/pago-realizado';
 
 function personasSubscriber(observer) {
 
@@ -105,6 +106,12 @@ export class PersonaService {
     getPadre(id: number): Observable<Persona> {
         const padreUrl = this.personasUrl + '/' + id;
         return this.http.get<Persona>(padreUrl, httpOptions);
+    }
+
+    getPagosRealizados(): Observable<PagoRealizado[]> {
+        const padresUrl = this.personasUrl + '/pagos-realizados';
+        console.log(padresUrl);
+        return this.http.get<PagoRealizado[]>(padresUrl, httpOptions);
     }
 
     postPadre(persona: Persona) {

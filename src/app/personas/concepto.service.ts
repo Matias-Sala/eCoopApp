@@ -15,7 +15,7 @@ function conceptosSubscriber (observer) {
         id: 1,
         nombre: 'Pago en 10 Cuotas',
         cuotas: 10,
-        valor: 150
+        valor: 120
     };
 
     const c3: Concepto = {
@@ -29,7 +29,7 @@ function conceptosSubscriber (observer) {
         id: 3,
         nombre: 'Pago en 3 Cuotas',
         cuotas: 3,
-        valor: 400
+        valor: 300
     };
 
     const conceptos: Concepto[] = [ c1, c2, c3, c4 ];

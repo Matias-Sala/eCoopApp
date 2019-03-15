@@ -64,7 +64,7 @@ export class PersonaResumeComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(PersonaResumeDialogComponent, {
       width: '250px',
-      data: { personaId: this.personaId.toString() }
+      data: { personaId: this.personaId }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -91,7 +91,17 @@ export class PersonaResumeComponent implements OnInit {
   }
 
   editPersona() {
-    this.router.navigate(['padres/edit/' + this.personaId]);
+    this.router.navigate(['edit'], { relativeTo: this.route });
+  }
+
+  editFamiliar(id: number) {
+    this.router.navigate(['padres/' + this.personaId + '/familiares/' + id]);
+  }
+
+  deleteFamiliar(id: number) {
+    if (confirm('Esta seguro que quiere eliminar el pago?')) {
+      // this._store.dispatch(new DeleteFamiliar({ id: id, personaId: this.personaId }));
+    }
   }
 }
 
@@ -102,11 +112,11 @@ export class PersonaResumeComponent implements OnInit {
 export class PersonaResumeDialogComponent implements OnInit {
 
   pagoFormGroup: FormGroup;
-  obsConceptos: Observable<Concepto[]>;
   conceptos: Concepto[];
   cuotas: number[];
-  personaId: number;
-
+  persona: Persona;
+  concepto: Concepto;
+  cuota = 1;
 
   constructor(
     public dialogRef: MatDialogRef<PersonaResumeDialogComponent>,
@@ -114,39 +124,30 @@ export class PersonaResumeDialogComponent implements OnInit {
     private _store: Store<IAppState>) { }
 
   ngOnInit() {
-
-    this.obsConceptos = this._store.pipe(select(selectConceptoList));
-
     this._store.dispatch(new GetConceptos());
-
     this.initForm();
-
   }
 
   private initForm() {
-    let concepto: Concepto;
-    let cuota = 1;
-
     this.pagoFormGroup = new FormGroup({
-      'selectConcepto': new FormControl(concepto, Validators.required),
-      'cuota': new FormControl(cuota, Validators.required),
+      'selectConcepto': new FormControl(this.concepto, Validators.required),
+      'cuota': new FormControl(this.cuota, Validators.required),
       'valor': new FormControl({ value: 0, disabled: true })
     });
 
     this.pagoFormGroup.get('selectConcepto')
       .valueChanges
       .subscribe((cpto) => {
-        cuota = 1;
+        this.cuota = 1;
         this.cuotas = this.getCuotas(cpto.cuotas);
-        console.log(this.cuotas);
-        this.pagoFormGroup.get('cuota').setValue(cuota);
+        this.pagoFormGroup.get('cuota').setValue(this.cuota);
         this.pagoFormGroup.get('valor').setValue(cpto.valor);
       });
 
-    this.obsConceptos.subscribe((cptos) => {
+    this._store.pipe(select(selectConceptoList)).subscribe((cptos) => {
       this.conceptos = cptos;
-      concepto = cptos[0];
-      this.pagoFormGroup.get('selectConcepto').setValue(concepto);
+      this.concepto = cptos[0];
+      this.pagoFormGroup.get('selectConcepto').setValue(this.concepto);
     });
   }
 

@@ -1,0 +1,52 @@
+<mat-toolbar color="primary" class="mat-elevation-z6">
+    <button mat-icon-button class="toolBar-icon">
+      <mat-icon aria-label="Side nav toggle icon" (tap)="backToPrevious()">arrow_back</mat-icon>
+    </button>
+    <span>Reporte Cobranza</span>
+  </mat-toolbar>
+<mat-card>
+    <dx-data-grid id="gridContainer" [dataSource]="pagos$" [remoteOperations]="true" [showBorders]="true" [allowColumnResizing]="true"
+        [showBorders]="true" columnResizingMode="nextColumn" [columnAutoWidth]="true" [showRowLines]="true" [rowAlternationEnabled]="true">
+        <dxo-export [enabled]="true" fileName="Cobranza" [allowExportSelectedData]="true"></dxo-export>
+        <dxi-column dataField="nombre">
+        </dxi-column>
+        <dxi-column dataField="direccion">
+        </dxi-column>
+        <dxi-column caption="trimestre">
+            <dxi-column caption="1" dataField="trimestre1">
+            </dxi-column>
+            <dxi-column caption="2" dataField="trimestre2">
+            </dxi-column>
+            <dxi-column caption="3" dataField="trimestre2">
+            </dxi-column>
+        </dxi-column>
+        <dxi-column caption="Mensual">
+            <dxi-column caption="1" dataField="mes1">
+            </dxi-column>
+            <dxi-column caption="2" dataField="mes2">
+            </dxi-column>
+            <dxi-column caption="3" dataField="mes3">
+            </dxi-column>
+            <dxi-column caption="4" dataField="mes4">
+            </dxi-column>
+            <dxi-column caption="5" dataField="mes5">
+            </dxi-column>
+            <dxi-column caption="6" dataField="mes6">
+            </dxi-column>
+            <dxi-column caption="7" dataField="mes7">
+            </dxi-column>
+            <dxi-column caption="8" dataField="mes8">
+            </dxi-column>
+            <dxi-column caption="9" dataField="mes9">
+            </dxi-column>
+            <dxi-column caption="10" dataField="mes10">
+            </dxi-column>
+        </dxi-column>
+        <dxi-column dataField="inicial">
+        </dxi-column>
+        <dxi-column dataField="total">
+        </dxi-column>
+        <dxi-column dataField="otros">
+        </dxi-column>
+    </dx-data-grid>
+</mat-card>

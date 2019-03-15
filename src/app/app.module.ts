@@ -29,6 +29,9 @@ import { LoginEffects } from './login/store/login.effects';
 import { LoginService } from './login/login.service';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { PersonaEditComponent } from './personas/persona-edit/persona-edit.component';
+import { AlumnoEditComponent } from './personas/alumno-edit/alumno-edit.component';
+import { ReportesComponent } from './personas/reportes/reportes.component';
+import { DxDataGridModule, DxTemplateModule } from 'devextreme-angular';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -39,7 +42,9 @@ import { PersonaEditComponent } from './personas/persona-edit/persona-edit.compo
     PersonaResumeComponent,
     PersonaResumeDialogComponent,
     LoginComponent,
-    PersonaEditComponent
+    PersonaEditComponent,
+    AlumnoEditComponent,
+    ReportesComponent
   ],
   entryComponents: [PersonaResumeComponent, PersonaResumeDialogComponent],
   imports: [
@@ -51,6 +56,8 @@ import { PersonaEditComponent } from './personas/persona-edit/persona-edit.compo
     ReactiveFormsModule,
     HttpClientModule,
     FlexLayoutModule,
+    DxDataGridModule,
+    DxTemplateModule,
     StoreModule.forRoot(appReducer),
     EffectsModule.forRoot([PersonaEffects, ConceptoEffects, LoginEffects]),
     StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),

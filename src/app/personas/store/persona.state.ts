@@ -1,5 +1,6 @@
 import { Persona } from '../models/persona';
 import { Pago } from '../models/pago';
+import { PagoRealizado } from '../models/pago-realizado';
 
 export interface IPersonaState {
     personas: Persona[];
@@ -7,6 +8,7 @@ export interface IPersonaState {
     reloadPersona: boolean;
     reloadPersonas: boolean;
     selectedPagoId: number;
+    pagosRealizados: PagoRealizado[];
     effectError: string;
 }
 
@@ -16,6 +18,7 @@ export const initialPersonaState: IPersonaState = {
     reloadPersona: false,
     reloadPersonas: false,
     selectedPagoId: null,
+    pagosRealizados: null,
     effectError: null
 };
 

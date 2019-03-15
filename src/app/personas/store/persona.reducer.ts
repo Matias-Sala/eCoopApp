@@ -17,7 +17,8 @@ export function personaReducer(state: IPersonaState = initialPersonaState, actio
             const persona = state.personas[index];
             const personaUpdated = {
                 ...persona,
-                ...action.payload.persona };
+                ...action.payload.persona
+            };
             const personas = [...state.personas];
             personas[index] = personaUpdated;
 
@@ -26,6 +27,14 @@ export function personaReducer(state: IPersonaState = initialPersonaState, actio
                 personas: personas,
                 selectedPersona: personas[index],
                 reloadPersona: false
+            };
+        }
+        case EPersonaActions.GetPagosRealizadosSuccess: {
+            console.log(action.payload.pagos);
+
+            return {
+                ...state,
+                pagosRealizados: action.payload.pagos
             };
         }
         case EPersonaActions.PostPadreSuccess: {
@@ -39,8 +48,9 @@ export function personaReducer(state: IPersonaState = initialPersonaState, actio
             const index = state.personas.findIndex(p => p.id === action.payload.padre.id);
             const padre = state.personas[index];
             const padreUpdated = {
-                ...padre ,
-                ...action.payload.padre };
+                ...padre,
+                ...action.payload.padre
+            };
             const personas = [...state.personas];
             personas[index] = padreUpdated;
 

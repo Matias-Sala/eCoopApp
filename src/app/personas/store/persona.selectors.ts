@@ -22,6 +22,15 @@ export function selectPersona(id: number) {
     );
 }
 
+export function selectFamiliar(id: number, familiarId: number) {
+    return createSelector(
+        selectPersonas,
+        (state: IPersonaState) => state.personas
+        .find(p => p.id === familiarId)
+        .familiares.find(f => f.id === id)
+    );
+}
+
 export const selectReloadPersonas = createSelector(
     selectPersonas,
     (state: IPersonaState) => state.reloadPersonas
@@ -30,6 +39,11 @@ export const selectReloadPersonas = createSelector(
 export const selectReloadPersona = createSelector(
     selectPersonas,
     (state: IPersonaState) => state.reloadPersona
+);
+
+export const selectPagoRealizadoList = createSelector(
+    selectPersonas,
+    (state: IPersonaState) => state.pagosRealizados
 );
 
 export const selectErrors = createSelector(

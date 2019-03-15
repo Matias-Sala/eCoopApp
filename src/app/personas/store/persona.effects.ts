@@ -17,7 +17,10 @@ import {
     PostPadre,
     PostPadreSuccess,
     PutPadre,
-    PutPadreSuccess
+    PutPadreSuccess,
+    GetPagosRealizadosSuccess,
+    GetPagosRealizados,
+    GetPersonas
 } from './persona.actions';
 import { PersonaService } from '../persona.service';
 import { of, Observable } from 'rxjs';
@@ -28,7 +31,7 @@ export class PersonaEffects {
 
     @Effect()
     getPersonas$ = this._actions$.pipe(
-        ofType(EPersonaActions.GetPersonas),
+        ofType<GetPersonas>(EPersonaActions.GetPersonas),
         switchMap(() =>
             this._personaService.getPadres().pipe(
                 take(10),
@@ -45,6 +48,18 @@ export class PersonaEffects {
             this._personaService.getPadre(getPersona.payload.personaId).pipe(
                 map(data => {
                     return (new GetPersonaSuccess({ persona: data }));
+                }),
+            )
+        ));
+
+    @Effect()
+    getPagosRealizados$ = this._actions$.pipe(
+        ofType<GetPagosRealizados>(EPersonaActions.GetPagosRealizados),
+        switchMap(() =>
+            this._personaService.getPagosRealizados().pipe(
+                map(pagos => {
+                    console.log('pagos ok');
+                    return (new GetPagosRealizadosSuccess({ pagos }));
                 }),
             )
         ));

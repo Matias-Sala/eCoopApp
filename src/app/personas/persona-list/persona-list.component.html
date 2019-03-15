@@ -1,8 +1,8 @@
 <div>
     <mat-toolbar color="primary" class="mat-elevation-z6 header" *ngIf="!showSearch">
-        <!--<button mat-icon-button class="toolBar-icon" (click)="sidenav.toggle()">
+        <button mat-icon-button class="toolBar-icon" (click)="sidenav.toggle()">
             <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-        </button>-->
+        </button>
         <span>{{ titulo }}</span>
         <span class="bar-spacer"></span>
         <button mat-button matSuffix mat-icon-button aria-label="Buscar" (click)="showSearch = !showSearch"
@@ -25,7 +25,28 @@
     </mat-toolbar>
     <mat-sidenav-container class="container">
         <mat-sidenav #sidenav mode="over" fixedInViewport="fixed" class="sidenav">
-            <p><button mat-button (click)="sidenav.toggle()">Toggle</button></p>
+            <mat-toolbar>
+                <mat-toolbar-row>
+                  <h2> eCoop </h2>
+                </mat-toolbar-row>
+              </mat-toolbar>
+          
+              <mat-nav-list>
+          
+                <h2 matSubheader> Reportes </h2>
+          
+                <a mat-list-item
+                   (click)="sidenav.close()"
+                   routerLinkActive
+                   #routerLinkActiveInstance="routerLinkActive"
+                   [class.list-item-active]="routerLinkActiveInstance.isActive"
+                   (click)="navigateCobranza()">
+                  <mat-icon matListIcon>monetization_on</mat-icon>
+                  Cobranza
+                </a>
+          
+                <mat-divider></mat-divider>          
+              </mat-nav-list>
         </mat-sidenav>
         <mat-sidenav-content>
             <mat-progress-bar mode="indeterminate" color="accent" *ngIf="(personasFiltered | async) == null"></mat-progress-bar>

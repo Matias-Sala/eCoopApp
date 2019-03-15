@@ -44,14 +44,18 @@ export class PersonaListComponent implements OnInit, OnDestroy {
   }
 
   onResumePersona(id: number) {
-    this._router.navigate(['resumen/' + id], { relativeTo: this._route });
+    this._router.navigate([id], { relativeTo: this._route });
+  }
+
+  navigateCobranza() {
+    this._router.navigate(['reportes/cobranzas']);
   }
 
   filterPersons() {
     this.personasFiltered = this.personas$.pipe(
       map(people => people.filter(person => {
-        const dir = (person.direccion == null) ? '' : person.direccion.calle + person.direccion.numero + person.direccion.dpto;
-        return (person.nombre + person.apellido + dir).toLowerCase().match(this.value.toLowerCase());
+        const dir = (person.direccion == null) ? '' : person.direccion.calle + ' ' + person.direccion.numero + ' ' + person.direccion.dpto;
+        return (person.nombre + ' ' + person.apellido + dir).toLowerCase().match(this.value.toLowerCase());
       })
       )
     );
