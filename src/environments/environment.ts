@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://localhost:44335/api'
-  // baseUrl: 'https://www.ecoop.site/api'
+  // baseUrl: 'https://localhost:44335/api'
+  baseUrl: 'https://www.ecoop.com.ar/api'
 };
 
 /*
